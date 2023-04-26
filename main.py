@@ -56,17 +56,32 @@ def draw_no_tips_chart(timeframe_type, tip_type):
     if timeframe_type == 'daily':
         dat = dat.groupby('date').sum().reset_index()
         fig = px.line(dat, x='date', y='count1')
+        fig.update_layout(
+            title_text='Daily',
+            xaxis_title_text='Date',
+            yaxis_title_text='Number of tips',
+        )
         st.plotly_chart(fig)
     elif timeframe_type == 'monthly':
-        fig = px.histogram(dat, x="date", y="count1", histfunc="sum", title="Histogram on Date Axes")
+        fig = px.histogram(dat, x="date", y="count1", histfunc="sum")
+
         fig.update_traces(xbins_size="M1")
         fig.update_xaxes(showgrid=True, ticklabelmode="period", dtick="M1", tickformat="%b\n%Y")
-        fig.update_layout(bargap=0.1)
+        fig.update_layout(bargap=0.1,
+                          title_text='Monthly',  # title of plot
+                          xaxis_title_text='Month',  # xaxis label
+                          yaxis_title_text='Number oF tips',  # yaxis label)
+                          )
         st.plotly_chart(fig)
     elif timeframe_type == 'weekly':
         fig = go.Figure(go.Histogram(x=dat['date'], y=dat['count1'], histfunc="sum", autobinx=False,
                                      xbins=dict(size='604800000.0'
                                                 )))
+        fig.update_layout(
+            title_text='Weekly',  # title of plot
+            xaxis_title_text='Month',  # xaxis label
+            yaxis_title_text='Number oF tips',)
+
         st.plotly_chart(fig)
 
 
@@ -174,7 +189,12 @@ with row4_2:
 
 row5_spacer1, row5_1, row5_spacer2, row5_2, row5_spacer3 = st.columns((.2, 4.4, .4, 4.4, .2))
 with row5_1:
-    fig = px.histogram(df, x="sector", y="count1", histfunc="sum", title="sector wise tips")
+    fig = px.histogram(df, x="sector", y="count1", histfunc="sum")
+    fig.update_layout(
+        xaxis_title="sector",
+        yaxis_title="no of tips",
+        title_text="sector wise tips"
+    )
     st.plotly_chart(fig)
 
 
