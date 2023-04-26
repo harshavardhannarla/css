@@ -10,7 +10,7 @@ import yahooquery as yq
 
 # add title as "Stock Tips Analysis"
 st.set_page_config(layout="wide")
-st.title("Telegram Stock Tips Analysis")
+st.title("Telegram Stock Tips Simulator")
 
 df = pd.DataFrame()
 pd.options.plotting.backend = 'plotly'
